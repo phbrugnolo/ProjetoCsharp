@@ -11,10 +11,10 @@ public class User
 
     }
 
-    private string? Nome { get; set; }
-    private int Vitoria { get; set; }
-    private int Derrota { get; set; }
-    private string? Id { get; set; }
+    public string? Nome { get; set; }
+    public int Vitoria { get; set; }
+    public int Derrota { get; set; }
+    public string? Id { get; set; }
 
 
 }
