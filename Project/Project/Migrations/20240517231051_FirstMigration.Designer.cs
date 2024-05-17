@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Project.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240514231005_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240517231051_FirstMigration")]
+    partial class FirstMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -18,7 +18,7 @@ namespace Project.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.5");
 
-            modelBuilder.Entity("Project.User", b =>
+            modelBuilder.Entity("Project.Models.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("TEXT");
@@ -26,8 +26,14 @@ namespace Project.Migrations
                     b.Property<int>("Derrota")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("Idade")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Nome")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("Telefone")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Vitoria")
                         .HasColumnType("INTEGER");

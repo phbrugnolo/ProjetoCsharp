@@ -5,7 +5,7 @@
 namespace Project.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class FirstMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,6 +16,8 @@ namespace Project.Migrations
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
                     Nome = table.Column<string>(type: "TEXT", nullable: true),
+                    Idade = table.Column<int>(type: "INTEGER", nullable: false),
+                    Telefone = table.Column<int>(type: "INTEGER", nullable: false),
                     Vitoria = table.Column<int>(type: "INTEGER", nullable: false),
                     Derrota = table.Column<int>(type: "INTEGER", nullable: false)
                 },

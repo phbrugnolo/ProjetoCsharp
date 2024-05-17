@@ -1,6 +1,28 @@
 @Project_HostAddress = http://localhost:5154
 
-GET {{Project_HostAddress}}/weatherforecast/
-Accept: application/json
+### Listagem de produtos
+GET http://localhost:5154/api/user/listar
 
-###
+### Cadastro de user
+POST http://localhost:5154/api/user/cadastrar
+Content-Type: application/json
+
+{
+    "nome": "NomeTeste",
+    "telefone": 41995917730,
+    "idade": 19
+}
+
+### Buscar Produto 
+GET http://localhost:5154/api/user/buscar/NomeTeste
+
+### Deletar
+DELETE http://localhost:5154/api/user/remover/NomeTeste
+
+### 
+PUT http://localhost:5154/api/user/edit/NomeTeste
+Content-Type: application/json
+
+{
+    "idade": 20
+}

@@ -1,4 +1,4 @@
-namespace Project;
+namespace Project.Models;
 
 public class Battle
 {

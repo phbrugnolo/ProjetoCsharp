@@ -15,7 +15,7 @@ namespace Project.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.5");
 
-            modelBuilder.Entity("Project.User", b =>
+            modelBuilder.Entity("Project.Models.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("TEXT");
@@ -23,8 +23,14 @@ namespace Project.Migrations
                     b.Property<int>("Derrota")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("Idade")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Nome")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("Telefone")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Vitoria")
                         .HasColumnType("INTEGER");
