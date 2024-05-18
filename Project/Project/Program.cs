@@ -10,7 +10,7 @@ var app = builder.Build();
 List<User> Users = new List<User>();
 
 
-app.MapPost("/api/user/cadastrar/", ([FromBody] User usuario, [FromServices] AppDbContext context) =>
+app.MapPost("/api/user/cadastrar", ([FromBody] User usuario, [FromServices] AppDbContext context) =>
 {
     List<ValidationResult> errors = new List<ValidationResult>();
     if (!Validator.TryValidateObject(usuario, new ValidationContext(usuario), errors, true))

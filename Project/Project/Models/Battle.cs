@@ -8,7 +8,7 @@ public class Battle
 
     }
 
-    public string Batalhar()
+    public string Batalhar(User user)
     {
         string[] opcoes = { "pedra", "papel", "tesoura" };
         Random random = new Random();
@@ -23,10 +23,12 @@ public class Battle
                  (Jogada == "papel" && jogadaMaquina == "pedra") ||
                  (Jogada == "tesoura" && jogadaMaquina == "papel"))
         {
+            user.Vitoria += 1;
             return "Você venceu!";
         }
         else
         {
+            user.Derrota += 1;
             return "Você perdeu!";
         }
     }

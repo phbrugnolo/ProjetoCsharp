@@ -8,9 +8,10 @@ POST http://localhost:5154/api/user/cadastrar
 Content-Type: application/json
 
 {
-    "nome": "NomeTeste",
-    "telefone": 41995917730,
-    "idade": 19
+    "nome": "teste8",
+    "email": "email@email.com",
+    "telefone": 98967912,
+    "idade": 28
 }
 
 ### Buscar Produto 
