@@ -1,13 +1,20 @@
-namespace Project.Models;
-
-public class Torneio
+namespace Project.Models
 {
-    public Torneio(List<User> users, Battle batalha)
+    public class Torneio
     {
-        Users = users;
-        Batalha = batalha;
-    }
+        public Torneio() { }
 
-    public List<User> Users { get; set; }
-    public Battle Batalha { get; set; }
+        public Torneio(string nome, ICollection<User> users, Battle batalha)
+        {
+            Nome = nome;
+            Users = users;
+            Batalha = batalha;
+            TorneioId = Guid.NewGuid().ToString();
+        }
+
+        public string? Nome { get; set; }
+        public Battle Batalha { get; set; }
+        public ICollection<User> Users { get; set; } = new List<User>();
+        public string TorneioId { get; set; }
+    }
 }

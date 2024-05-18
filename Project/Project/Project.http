@@ -27,3 +27,14 @@ Content-Type: application/json
 {
     "idade": 20
 }
+
+###
+
+POST http://localhost:5154/api/tournament/cadastrar
+Content-Type: application/json
+
+{
+    "nome": "Torneio 1",
+    "users": [],
+    "batalha": []
+}

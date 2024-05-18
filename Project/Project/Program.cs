@@ -8,6 +8,7 @@ var app = builder.Build();
 
 
 List<User> Users = new List<User>();
+List<Torneio> Torneios = new List<Torneio>();
 
 
 app.MapPost("/api/user/cadastrar", ([FromBody] User usuario, [FromServices] AppDbContext context) =>
@@ -68,14 +69,57 @@ app.MapPut("/api/user/edit/{nome}", ([FromRoute] string nome, [FromBody] User uA
 });
 
 app.MapGet("/api/user/buscar/{nome}", ([FromRoute] string nome, [FromServices] AppDbContext context) =>
-{
-    //Endpoint com várias linhas de código 
+{ 
     User? user = context.Users.FirstOrDefault(x => x.Nome == nome);
 
     if (user is null) return Results.NotFound("Usuário não Encotrado");
     return Results.Ok(user);
 
 });
+
+app.MapPost("/api/tournament/cadastrar", ([FromBody] Torneio torneio, [FromServices] AppDbContext context) =>
+{
+    List<ValidationResult> errors = new List<ValidationResult>();
+    if (!Validator.TryValidateObject(torneio, new ValidationContext(torneio), errors, true))
+    {
+        return Results.BadRequest(errors);
+    }
+
+    Torneio? torneioBuscado = context.Torneios.FirstOrDefault(x => x.Nome == torneio.Nome);
+
+    if (torneioBuscado is null)
+    {
+        context.Torneios.Add(torneio);
+        context.SaveChanges();
+        return Results.Created("Torneio cadastrado com sucessos", torneio);
+    }
+    return Results.BadRequest("Já existe um torneio com este nome");
+
+});
+
+app.MapPost("/batalhar", async (AppDbContext context, string userName, string torneioId, string jogada) =>
+{
+    // Find the user by name
+    User? user = context.Users.FirstOrDefault(x => x.Nome == userName);
+    if (user is null)
+        return Results.NotFound("Usuário não encontrado");
+
+    Torneio? torneio = context.Torneios.FirstOrDefault(x => x.TorneioId == torneioId);
+    if (torneio is null)
+        return Results.NotFound("Torneio não encontrado");
+
+    if (!torneio.Users.Contains(user))
+        return Results.BadRequest("O usuário não faz parte do torneio especificado");
+
+    var battle = new Battle(jogada);
+    
+    var resultado = battle.Batalhar(user);
+
+    await context.SaveChangesAsync();
+
+    return Results.Ok(new { resultado, user.Vitoria, user.Derrota });
+});
+
 
 
 

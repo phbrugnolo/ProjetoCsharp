@@ -2,10 +2,10 @@ namespace Project.Models;
 
 public class Battle
 {
+    public Battle(){}
     public Battle(string jogada)
     {
         Jogada = jogada.ToLower().Trim();
-
     }
 
     public string Batalhar(User user)
