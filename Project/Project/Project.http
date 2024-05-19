@@ -1,40 +1,50 @@
 @Project_HostAddress = http://localhost:5154
 
-### Listagem de produtos
-GET http://localhost:5154/api/user/listar
+### Listagem de usuários
+GET {{Project_HostAddress}}/users/listar
 
-### Cadastro de user
-POST http://localhost:5154/api/user/cadastrar
+### Cadastro de usuário
+POST {{Project_HostAddress}}/users/cadastrar
 Content-Type: application/json
 
 {
-    "nome": "teste8",
+    "nome": "tesyr",
     "email": "email@email.com",
-    "telefone": 98967912,
+    "telefone": "98967912",
     "idade": 28
 }
 
-### Buscar Produto 
-GET http://localhost:5154/api/user/buscar/NomeTeste
+### Buscar usuário
+GET {{Project_HostAddress}}/users/buscar/teste
 
-### Deletar
-DELETE http://localhost:5154/api/user/remover/NomeTeste
+### Deletar usuário
+DELETE {{Project_HostAddress}}/users/remover/teste
 
-### 
-PUT http://localhost:5154/api/user/edit/NomeTeste
+### Editar usuário
+PUT {{Project_HostAddress}}/users/edit/teste
 Content-Type: application/json
 
 {
-    "idade": 20
+    "nome": "teste_editado",
+    "email": "email_editado@email.com",
+    "telefone": "98967911",
+    "idade": 29
 }
 
-###
-
-POST http://localhost:5154/api/tournament/cadastrar
+### Cadastro de torneio
+POST {{Project_HostAddress}}/tournament/cadastrar
 Content-Type: application/json
 
 {
     "nome": "Torneio 1",
-    "users": [],
-    "batalha": []
+    "descricao": "torneio de verao"
+}
+### Batalhar
+POST {{Project_HostAddress}}/batalhar
+Content-Type: application/json
+
+{
+    "userId": "dd9db5a5-02ee-4488-8679-cd9b6eee62c6",
+    "torneioId": "b7b248fa-8670-469c-a8fd-beb3ce54dcea",
+    "jogada": "pedra"
 }

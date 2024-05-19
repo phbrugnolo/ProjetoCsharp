@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Project.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240518053221_ThirdMigratiom")]
-    partial class ThirdMigratiom
+    [Migration("20240519222512_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,10 +21,26 @@ namespace Project.Migrations
 
             modelBuilder.Entity("Project.Models.Battle", b =>
                 {
-                    b.Property<string>("Jogada")
+                    b.Property<string>("BattleId")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("Jogada");
+                    b.Property<string>("Jogada")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("TorneioId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("BattleId");
+
+                    b.HasIndex("TorneioId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Battles");
                 });
@@ -34,16 +50,18 @@ namespace Project.Migrations
                     b.Property<string>("TorneioId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("BatalhaId")
+                    b.Property<DateTime>("CriadoEm")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Descricao")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Nome")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("TorneioId");
-
-                    b.HasIndex("BatalhaId");
 
                     b.ToTable("Torneios");
                 });
@@ -82,45 +100,23 @@ namespace Project.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("UserTorneio", b =>
+            modelBuilder.Entity("Project.Models.Battle", b =>
                 {
-                    b.Property<string>("TorneioId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("TorneioId", "UserId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserTorneio");
-                });
-
-            modelBuilder.Entity("Project.Models.Torneio", b =>
-                {
-                    b.HasOne("Project.Models.Battle", "Batalha")
-                        .WithMany()
-                        .HasForeignKey("BatalhaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Batalha");
-                });
-
-            modelBuilder.Entity("UserTorneio", b =>
-                {
-                    b.HasOne("Project.Models.Torneio", null)
+                    b.HasOne("Project.Models.Torneio", "Torneio")
                         .WithMany()
                         .HasForeignKey("TorneioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Project.Models.User", null)
+                    b.HasOne("Project.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Torneio");
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

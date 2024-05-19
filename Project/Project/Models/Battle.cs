@@ -1,11 +1,14 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace Project.Models;
 
 public class Battle
 {
-    public Battle(){}
-    public Battle(string jogada)
+    public Battle(string jogada, string userId, string torneioId)
     {
         Jogada = jogada.ToLower().Trim();
+        UserId = userId;
+        TorneioId = torneioId;
     }
 
     public string Batalhar(User user)
@@ -33,5 +36,11 @@ public class Battle
         }
     }
 
+    [Key]
+    public string BattleId { get; set; } = Guid.NewGuid().ToString();
     public string Jogada { get; set; }
+    public string UserId { get; set; }
+    public User? User { get; set; }
+    public string TorneioId { get; set; }
+    public Torneio? Torneio { get; set; }
 }
