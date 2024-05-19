@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Project.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240519222512_Initial")]
+    [Migration("20240519225243_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -60,6 +60,9 @@ namespace Project.Migrations
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<float>("Premiacao")
+                        .HasColumnType("REAL");
 
                     b.HasKey("TorneioId");
 

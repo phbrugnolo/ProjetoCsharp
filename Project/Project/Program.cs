@@ -7,6 +7,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>();
 var app = builder.Build();
 
+List<User> Users = new List<User>();
+List<Torneio> Torneios = new List<Torneio>();
+
 app.MapPost("/users/cadastrar/", ([FromBody] User usuario, [FromServices] AppDbContext context) =>
 {
     List<ValidationResult> errors = new List<ValidationResult>();
@@ -15,7 +18,7 @@ app.MapPost("/users/cadastrar/", ([FromBody] User usuario, [FromServices] AppDbC
         return Results.BadRequest(errors);
     }
 
-    User? usuarioBuscado = context.Users.FirstOrDefault(x => x.Nome == usuario.Nome);
+    User? usuarioBuscado = context.Users.FirstOrDefault(x => x.UserId == usuario.UserId);
 
     if (usuarioBuscado is null)
     {
@@ -79,7 +82,7 @@ app.MapPost("/tournament/cadastrar", ([FromBody] Torneio torneio, [FromServices]
         return Results.BadRequest(errors);
     }
 
-    Torneio? torneioBuscado = context.Torneios.FirstOrDefault(x => x.Nome == torneio.Nome);
+    Torneio? torneioBuscado = context.Torneios.FirstOrDefault(x => x.TorneioId == torneio.TorneioId);
 
     if (torneioBuscado is null)
     {
@@ -88,6 +91,49 @@ app.MapPost("/tournament/cadastrar", ([FromBody] Torneio torneio, [FromServices]
         return Results.Created("Usuario cadastrado com sucesso", torneio);
     }
     return Results.BadRequest("Já existe um usuario com este nome");
+});
+
+app.MapGet("/tournament/listar", ([FromServices] AppDbContext context) =>
+{
+    if (context.Torneios.Any()) return Results.Ok(context.Torneios.ToList());
+    return Results.NotFound("Torneios não encontrados");
+});
+
+app.MapDelete("/tournament/remover/{nome}", ([FromRoute] string nome, [FromServices] AppDbContext context) =>
+{
+    Torneio? torneio = context.Torneios.FirstOrDefault(x => x.Nome == nome);
+
+    if (torneio is not null)
+    {
+        context.Torneios.Remove(torneio);
+        context.SaveChanges();
+        return Results.Ok("Torneio removido com sucesso");
+    }
+    return Results.NotFound("Torneio não encontrado");
+});
+
+app.MapPut("/tournament/edit/{nome}", ([FromRoute] string nome, [FromBody] Torneio tAtualizado, [FromServices] AppDbContext context) =>
+{
+    Torneio? torneio = context.Torneios.FirstOrDefault(x => x.Nome == nome);
+
+    if (torneio is not null)
+    {
+        torneio.Nome = tAtualizado.Nome;
+        torneio.Descricao = tAtualizado.Descricao;
+        torneio.Premiacao = tAtualizado.Premiacao;
+        context.Torneios.Update(torneio);
+        context.SaveChanges();
+        return Results.Ok("Torneio editado com sucesso");
+    }
+    return Results.NotFound("Torneio não encontrado");
+});
+
+app.MapGet("/tournament/buscar/{nome}", ([FromRoute] string nome, [FromServices] AppDbContext context) =>
+{
+    Torneio? torneio = context.Torneios.FirstOrDefault(x => x.Nome == nome);
+
+    if (torneio is null) return Results.NotFound("Torneio não encontrado");
+    return Results.Ok(torneio);
 });
 
 app.MapPost("/batalhar/", ([FromBody] Battle battle, [FromServices] AppDbContext context) =>

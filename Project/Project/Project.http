@@ -36,9 +36,27 @@ POST {{Project_HostAddress}}/tournament/cadastrar
 Content-Type: application/json
 
 {
-    "nome": "Torneio 1",
-    "descricao": "torneio de verao"
+    "nome": "TorneioV",
+    "descricao": "torneio de verao",
+    "premiacao": 1000.00
 }
+
+### Buscar torneio
+GET {{Project_HostAddress}}/tournament/buscar/TorneioV
+
+### Deletar torneio
+DELETE {{Project_HostAddress}}/tournament/remover/TorneioV
+
+### Editar torneio
+PUT {{Project_HostAddress}}/tournament/edit/TorneioV
+Content-Type: application/json
+
+{
+    "nome": "TorneioI",
+    "descricao": "torneio de inverno",
+    "premiacao": 2000.00
+}
+
 ### Batalhar
 POST {{Project_HostAddress}}/batalhar
 Content-Type: application/json

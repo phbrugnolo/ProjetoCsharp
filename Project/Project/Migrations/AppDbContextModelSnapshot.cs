@@ -58,6 +58,9 @@ namespace Project.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<float>("Premiacao")
+                        .HasColumnType("REAL");
+
                     b.HasKey("TorneioId");
 
                     b.ToTable("Torneios");
