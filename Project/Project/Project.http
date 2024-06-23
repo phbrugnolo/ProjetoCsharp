@@ -18,7 +18,7 @@ Content-Type: application/json
 GET {{Project_HostAddress}}/users/buscar/teste
 
 ### Deletar usuário
-DELETE {{Project_HostAddress}}/users/remover/teste
+DELETE {{Project_HostAddress}}/users/remover/tesyr
 
 ### Editar usuário
 PUT {{Project_HostAddress}}/users/edit/teste
@@ -56,14 +56,16 @@ Content-Type: application/json
     "descricao": "torneio de inverno",
     "premiacao": 2000.00
 }
+### 
+GET {{Project_HostAddress}}/tournament/listar
 
 ### Batalhar
 POST {{Project_HostAddress}}/batalhar
 Content-Type: application/json
 
 {
-    "userId": "89f6880e-3297-43f2-9f9b-42169c98c9de",
-    "torneioId": "de1e0410-d441-486b-b1a0-6e9dbe831c57",
+    "userId": "69285bc4-9ac0-4b20-ac9a-c09de86a3900",
+    "torneioId": "9e77cf40-ec7f-456d-a89b-e3b6d0e90c23",
     "jogada": "pedra"
 }
 
