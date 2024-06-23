@@ -8,7 +8,7 @@ POST {{Project_HostAddress}}/users/cadastrar
 Content-Type: application/json
 
 {
-    "nome": "tesyr",
+    "nome": "teste",
     "email": "email@email.com",
     "telefone": "98967912",
     "idade": 28
@@ -62,7 +62,10 @@ POST {{Project_HostAddress}}/batalhar
 Content-Type: application/json
 
 {
-    "userId": "dd9db5a5-02ee-4488-8679-cd9b6eee62c6",
-    "torneioId": "b7b248fa-8670-469c-a8fd-beb3ce54dcea",
+    "userId": "89f6880e-3297-43f2-9f9b-42169c98c9de",
+    "torneioId": "de1e0410-d441-486b-b1a0-6e9dbe831c57",
     "jogada": "pedra"
 }
+
+### Listagem das batalhas
+# GET {{Project_HostAddress}}/batalhas/listar

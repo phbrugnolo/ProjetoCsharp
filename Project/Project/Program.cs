@@ -9,6 +9,7 @@ var app = builder.Build();
 
 List<User> Users = new List<User>();
 List<Torneio> Torneios = new List<Torneio>();
+// List<Battle> Battles = new List<Battle>();
 
 app.MapPost("/users/cadastrar/", ([FromBody] User usuario, [FromServices] AppDbContext context) =>
 {
@@ -24,7 +25,7 @@ app.MapPost("/users/cadastrar/", ([FromBody] User usuario, [FromServices] AppDbC
     {
         context.Users.Add(usuario);
         context.SaveChanges();
-        return Results.Created("Usuario cadastrado com sucesso", usuario);
+        return Results.Created("Usuário cadastrado com sucesso", usuario);
     }
     return Results.BadRequest("Já existe um usuario com este nome");
 });
@@ -32,7 +33,7 @@ app.MapPost("/users/cadastrar/", ([FromBody] User usuario, [FromServices] AppDbC
 app.MapGet("/users/listar", ([FromServices] AppDbContext context) =>
 {
     if (context.Users.Any()) return Results.Ok(context.Users.ToList());
-    return Results.NotFound("Usuarios não encontrados");
+    return Results.NotFound("Usuários não encontrados");
 });
 
 app.MapDelete("/users/remover/{nome}", ([FromRoute] string nome, [FromServices] AppDbContext context) =>
@@ -43,9 +44,9 @@ app.MapDelete("/users/remover/{nome}", ([FromRoute] string nome, [FromServices] 
     {
         context.Users.Remove(usuario);
         context.SaveChanges();
-        return Results.Ok("Usuario removido com sucesso");
+        return Results.Ok("Usuário removido com sucesso");
     }
-    return Results.NotFound("Usuario não encontrado");
+    return Results.NotFound("Usuário não encontrado");
 });
 
 app.MapPut("/users/edit/{nome}", ([FromRoute] string nome, [FromBody] User uAtualizado, [FromServices] AppDbContext context) =>
@@ -60,16 +61,16 @@ app.MapPut("/users/edit/{nome}", ([FromRoute] string nome, [FromBody] User uAtua
         usuario.Idade = uAtualizado.Idade;
         context.Users.Update(usuario);
         context.SaveChanges();
-        return Results.Ok("Usuario editado com sucesso");
+        return Results.Ok("Usuário editado com sucesso");
     }
-    return Results.NotFound("Usuario não encontrado");
+    return Results.NotFound("Usuário não encontrado");
 });
 
 app.MapGet("/users/buscar/{nome}", ([FromRoute] string nome, [FromServices] AppDbContext context) =>
 {
     User? usuario = context.Users.FirstOrDefault(x => x.Nome == nome);
 
-    if (usuario is null) return Results.NotFound("Usuario não encontrado");
+    if (usuario is null) return Results.NotFound("Usuário não encontrado");
     return Results.Ok(usuario);
 });
 
@@ -88,7 +89,7 @@ app.MapPost("/tournament/cadastrar", ([FromBody] Torneio torneio, [FromServices]
     {
         context.Torneios.Add(torneio);
         context.SaveChanges();
-        return Results.Created("Usuario cadastrado com sucesso", torneio);
+        return Results.Created("Usuário cadastrado com sucesso", torneio);
     }
     return Results.BadRequest("Já existe um usuario com este nome");
 });
@@ -136,21 +137,28 @@ app.MapGet("/tournament/buscar/{nome}", ([FromRoute] string nome, [FromServices]
     return Results.Ok(torneio);
 });
 
-app.MapPost("/batalhar/", ([FromBody] Battle battle, [FromServices] AppDbContext context) =>
+app.MapPost("/batalhar", ([FromBody] Battle battle, [FromServices] AppDbContext context) =>
 {
     User? user = context.Users.Find(battle.UserId);
-    if (user is null) return Results.NotFound("Usuario nao encontrado");
+    if (user is null) return Results.NotFound("Usuário não encontrado");
     battle.User = user;
 
     Torneio? torneio = context.Torneios.Find(battle.TorneioId);
-    if (torneio is null) return Results.NotFound("Torneio nao encontrado");
+    if (torneio is null) return Results.NotFound("Torneio não encontrado");
     battle.Torneio = torneio;
 
     string resultado = battle.Batalhar(user);
 
+    // context.Battles.Add(battle);
     context.SaveChanges();
     return Results.Ok(resultado);
 
 });
+
+// app.MapGet("/batalhas/listar", ([FromServices] AppDbContext context) =>
+// {
+//     if (context.Battles.Any()) return Results.Ok(context.Battles.ToList());
+//     return Results.NotFound("Nenhuma batalha encontrada");
+// });
 
 app.Run();
