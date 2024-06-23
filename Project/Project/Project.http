@@ -8,7 +8,7 @@ POST {{Project_HostAddress}}/users/cadastrar
 Content-Type: application/json
 
 {
-    "nome": "teste",
+    "nome": "teste2",
     "email": "email@email.com",
     "telefone": "98967912",
     "idade": 28
@@ -18,7 +18,7 @@ Content-Type: application/json
 GET {{Project_HostAddress}}/users/buscar/teste
 
 ### Deletar usuário
-DELETE {{Project_HostAddress}}/users/remover/tesyr
+DELETE {{Project_HostAddress}}/users/remover/teste2
 
 ### Editar usuário
 PUT {{Project_HostAddress}}/users/edit/teste
