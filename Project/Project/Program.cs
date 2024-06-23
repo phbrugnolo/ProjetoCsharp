@@ -42,9 +42,9 @@ app.MapGet("/users/listar", ([FromServices] AppDbContext context) =>
     return Results.NotFound("Usuários não encontrados");
 });
 
-app.MapDelete("/users/remover/{nome}", ([FromRoute] string nome, [FromServices] AppDbContext context) =>
+app.MapDelete("/users/remover/{id}", ([FromRoute] string id, [FromServices] AppDbContext context) =>
 {
-    User? usuario = context.Users.FirstOrDefault(x => x.Nome == nome);
+    User? usuario = context.Users.FirstOrDefault(x => x.UserId == id);
 
     if (usuario is not null)
     {
@@ -55,9 +55,9 @@ app.MapDelete("/users/remover/{nome}", ([FromRoute] string nome, [FromServices] 
     return Results.NotFound("Usuário não encontrado");
 });
 
-app.MapPut("/users/edit/{nome}", ([FromRoute] string nome, [FromBody] User uAtualizado, [FromServices] AppDbContext context) =>
+app.MapPut("/users/edit/{id}", ([FromRoute] string id, [FromBody] User uAtualizado, [FromServices] AppDbContext context) =>
 {
-    User? usuario = context.Users.FirstOrDefault(x => x.Nome == nome);
+    User? usuario = context.Users.FirstOrDefault(x => x.UserId == id);
 
     if (usuario is not null)
     {
@@ -106,9 +106,9 @@ app.MapGet("/tournament/listar", ([FromServices] AppDbContext context) =>
     return Results.NotFound("Torneios não encontrados");
 });
 
-app.MapDelete("/tournament/remover/{nome}", ([FromRoute] string nome, [FromServices] AppDbContext context) =>
+app.MapDelete("/tournament/remover/{id}", ([FromRoute] string id, [FromServices] AppDbContext context) =>
 {
-    Torneio? torneio = context.Torneios.FirstOrDefault(x => x.Nome == nome);
+    Torneio? torneio = context.Torneios.FirstOrDefault(x => x.TorneioId == id);
 
     if (torneio is not null)
     {
@@ -119,9 +119,9 @@ app.MapDelete("/tournament/remover/{nome}", ([FromRoute] string nome, [FromServi
     return Results.NotFound("Torneio não encontrado");
 });
 
-app.MapPut("/tournament/edit/{nome}", ([FromRoute] string nome, [FromBody] Torneio tAtualizado, [FromServices] AppDbContext context) =>
+app.MapPut("/tournament/edit/{id}", ([FromRoute] string id, [FromBody] Torneio tAtualizado, [FromServices] AppDbContext context) =>
 {
-    Torneio? torneio = context.Torneios.FirstOrDefault(x => x.Nome == nome);
+    Torneio? torneio = context.Torneios.FirstOrDefault(x => x.TorneioId == id);
 
     if (torneio is not null)
     {
