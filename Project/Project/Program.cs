@@ -76,9 +76,9 @@ app.MapPut("/users/edit/{id}", ([FromRoute] string id, [FromBody] User uAtualiza
     return Results.NotFound("Usuário não encontrado");
 });
 
-app.MapGet("/users/buscar/{nome}", ([FromRoute] string nome, [FromServices] AppDbContext context) =>
+app.MapGet("/users/buscar/{id}", ([FromRoute] string id, [FromServices] AppDbContext context) =>
 {
-    User? usuario = context.Users.FirstOrDefault(x => x.Nome == nome);
+    User? usuario = context.Users.FirstOrDefault(x => x.UserId == id);
 
     if (usuario is null) return Results.NotFound("Usuário não encontrado");
     return Results.Ok(usuario);
@@ -139,9 +139,9 @@ app.MapPut("/tournament/edit/{id}", ([FromRoute] string id, [FromBody] Torneio t
     return Results.NotFound("Torneio não encontrado");
 });
 
-app.MapGet("/tournament/buscar/{nome}", ([FromRoute] string nome, [FromServices] AppDbContext context) =>
+app.MapGet("/tournament/buscar/{id}", ([FromRoute] string id, [FromServices] AppDbContext context) =>
 {
-    Torneio? torneio = context.Torneios.FirstOrDefault(x => x.Nome == nome);
+    Torneio? torneio = context.Torneios.FirstOrDefault(x => x.TorneioId == id);
 
     if (torneio is null) return Results.NotFound("Torneio não encontrado");
     return Results.Ok(torneio);
