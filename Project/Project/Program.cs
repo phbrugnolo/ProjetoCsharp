@@ -5,12 +5,16 @@ using Project.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>();
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(
-       "AcessoTotal", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()
-    );
-});
+builder.Services.AddCors(
+    options =>
+    {
+        options.AddPolicy("AcessoTotal",
+            builder => builder.
+                AllowAnyOrigin().
+                AllowAnyHeader().
+                AllowAnyMethod());
+    }
+);
 var app = builder.Build();
 
 List<User> Users = new List<User>();
@@ -33,7 +37,7 @@ app.MapPost("/users/cadastrar/", ([FromBody] User usuario, [FromServices] AppDbC
         context.SaveChanges();
         return Results.Created("Usuário cadastrado com sucesso", usuario);
     }
-    return Results.BadRequest("Já existe um usuario com este nome");
+    return Results.BadRequest("Já existe um usuario com este ID");
 });
 
 app.MapGet("/users/listar", ([FromServices] AppDbContext context) =>
@@ -50,7 +54,7 @@ app.MapDelete("/users/remover/{id}", ([FromRoute] string id, [FromServices] AppD
     {
         context.Users.Remove(usuario);
         context.SaveChanges();
-        return Results.Ok("Usuário removido com sucesso");
+        return Results.Ok(context.Users.ToList());
     }
     return Results.NotFound("Usuário não encontrado");
 });
@@ -97,7 +101,7 @@ app.MapPost("/tournament/cadastrar", ([FromBody] Torneio torneio, [FromServices]
         context.SaveChanges();
         return Results.Created("Usuário cadastrado com sucesso", torneio);
     }
-    return Results.BadRequest("Já existe um usuario com este nome");
+    return Results.BadRequest("Já existe um usuario com este ID");
 });
 
 app.MapGet("/tournament/listar", ([FromServices] AppDbContext context) =>
@@ -114,7 +118,7 @@ app.MapDelete("/tournament/remover/{id}", ([FromRoute] string id, [FromServices]
     {
         context.Torneios.Remove(torneio);
         context.SaveChanges();
-        return Results.Ok("Torneio removido com sucesso");
+        return Results.Ok(context.Torneios.ToList());
     }
     return Results.NotFound("Torneio não encontrado");
 });
