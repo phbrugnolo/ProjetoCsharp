@@ -10,13 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Project.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-<<<<<<<< HEAD:Project/Project/Migrations/20240519234402_Initial.Designer.cs
-    [Migration("20240519234402_Initial")]
-    partial class Initial
-========
-    [Migration("20240520001641_Intial")]
-    partial class Intial
->>>>>>>> b9891926f5f086d86869d0deb25e43ea0a7271ab:Project/Project/Migrations/20240520001641_Intial.Designer.cs
+    [Migration("20240623190715_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

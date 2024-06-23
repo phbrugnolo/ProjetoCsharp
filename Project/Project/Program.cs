@@ -5,6 +5,12 @@ using Project.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(
+       "AcessoTotal", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()
+    );
+});
 var app = builder.Build();
 
 List<User> Users = new List<User>();
@@ -161,4 +167,5 @@ app.MapPost("/batalhar", ([FromBody] Battle battle, [FromServices] AppDbContext 
 //     return Results.NotFound("Nenhuma batalha encontrada");
 // });
 
+app.UseCors("AcessoTotal");
 app.Run();
