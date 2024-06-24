@@ -25,7 +25,7 @@ namespace Project.Models
         public string Telefone { get; set; }
 
         [Required(ErrorMessage = "O campo Email é obrigatório.")]
-        // [EmailAddress(ErrorMessage = "O campo Email deve ser um endereço de email válido.")]
+        [EmailAddress(ErrorMessage = "O campo Email deve ser um endereço de email válido.")]
         public string Email { get; set; }
 
         public int Vitoria { get; set; } = 0;

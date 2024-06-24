@@ -1,6 +1,5 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Project.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,7 +18,6 @@ var app = builder.Build();
 
 List<User> Users = new List<User>();
 List<Torneio> Torneios = new List<Torneio>();
-// List<Battle> Battles = new List<Battle>();
 
 app.MapPost("/users/cadastrar/", ([FromBody] User usuario, [FromServices] AppDbContext context) =>
 {
@@ -35,7 +33,7 @@ app.MapPost("/users/cadastrar/", ([FromBody] User usuario, [FromServices] AppDbC
     {
         context.Users.Add(usuario);
         context.SaveChanges();
-        return Results.Created("Usuário cadastrado com sucesso", usuario);
+        return Results.Created($"/users/buscar/{usuario.UserId}", usuario);
     }
     return Results.BadRequest("Já existe um usuario com este ID");
 });
@@ -86,7 +84,6 @@ app.MapGet("/users/buscar/{id}", ([FromRoute] string id, [FromServices] AppDbCon
 
 app.MapPost("/tournament/cadastrar", ([FromBody] Torneio torneio, [FromServices] AppDbContext context) =>
 {
-
     List<ValidationResult> errors = new List<ValidationResult>();
     if (!Validator.TryValidateObject(torneio, new ValidationContext(torneio), errors, true))
     {
@@ -99,9 +96,9 @@ app.MapPost("/tournament/cadastrar", ([FromBody] Torneio torneio, [FromServices]
     {
         context.Torneios.Add(torneio);
         context.SaveChanges();
-        return Results.Created("Usuário cadastrado com sucesso", torneio);
+        return Results.Created($"/tournament/buscar/{torneio.TorneioId}", torneio);
     }
-    return Results.BadRequest("Já existe um usuario com este ID");
+    return Results.BadRequest("Já existe um torneio com este ID");
 });
 
 app.MapGet("/tournament/listar", ([FromServices] AppDbContext context) =>
@@ -162,7 +159,6 @@ app.MapPost("/batalhar", ([FromBody] Battle battle, [FromServices] AppDbContext 
     // context.Battles.Add(battle);
     context.SaveChanges();
     return Results.Ok(resultado);
-
 });
 
 // app.MapGet("/batalhas/listar", ([FromServices] AppDbContext context) =>
