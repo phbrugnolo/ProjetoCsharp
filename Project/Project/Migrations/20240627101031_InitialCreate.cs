@@ -37,6 +37,7 @@ namespace Project.Migrations
                     Email = table.Column<string>(type: "TEXT", nullable: false),
                     Vitoria = table.Column<int>(type: "INTEGER", nullable: false),
                     Derrota = table.Column<int>(type: "INTEGER", nullable: false),
+                    Empate = table.Column<int>(type: "INTEGER", nullable: false),
                     CriadoEm = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
@@ -51,6 +52,7 @@ namespace Project.Migrations
                     BattleId = table.Column<string>(type: "TEXT", nullable: false),
                     CriadoEm = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Jogada = table.Column<string>(type: "TEXT", nullable: false),
+                    JogadaMaquina = table.Column<string>(type: "TEXT", nullable: true),
                     UserId = table.Column<string>(type: "TEXT", nullable: false),
                     TorneioId = table.Column<string>(type: "TEXT", nullable: false)
                 },

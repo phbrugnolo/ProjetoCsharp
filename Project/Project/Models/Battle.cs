@@ -10,7 +10,7 @@ namespace Project.Models
 
         [Required(ErrorMessage = "A jogada é obrigatória.")]
         public string? Jogada { get; set; }
-
+        public string? JogadaMaquina { get; set; }
         [Required(ErrorMessage = "O ID do usuário é obrigatório.")]
         public string? UserId { get; set; }
         public User? User { get; set; }
@@ -19,28 +19,26 @@ namespace Project.Models
         public string? TorneioId { get; set; }
         public Torneio? Torneio { get; set; }
 
-        public string Batalhar(User user)
+        public void Batalhar(User user)
         {
             string[] opcoes = { "pedra", "papel", "tesoura" };
             Random random = new Random();
             int indiceMaquina = random.Next(0, 3);
-            string jogadaMaquina = opcoes[indiceMaquina];
+            string JogadaMaquina = opcoes[indiceMaquina];
 
-            if (Jogada == jogadaMaquina)
+            if (Jogada == JogadaMaquina)
             {
-                return "Empate!";
+                user.Empate += 1;
             }
-            else if ((Jogada == "pedra" && jogadaMaquina == "tesoura") ||
-                     (Jogada == "papel" && jogadaMaquina == "pedra") ||
-                     (Jogada == "tesoura" && jogadaMaquina == "papel"))
+            else if ((Jogada == "pedra" && JogadaMaquina == "tesoura") ||
+                     (Jogada == "papel" && JogadaMaquina == "pedra") ||
+                     (Jogada == "tesoura" && JogadaMaquina == "papel"))
             {
                 user.Vitoria += 1;
-                return "Você venceu!";
             }
             else
             {
                 user.Derrota += 1;
-                return "Você perdeu!";
             }
         }
     }

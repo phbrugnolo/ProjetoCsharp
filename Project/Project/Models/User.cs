@@ -30,7 +30,7 @@ namespace Project.Models
 
         public int Vitoria { get; set; } = 0;
         public int Derrota { get; set; } = 0;
-
+        public int Empate { get; set; } = 0;
         public DateTime CriadoEm { get; set; } = DateTime.Now;
         public string UserId { get; set; } = Guid.NewGuid().ToString();
     }

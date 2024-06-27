@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Project.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240627014324_InitialCreate")]
+    [Migration("20240627101031_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -29,6 +29,9 @@ namespace Project.Migrations
 
                     b.Property<string>("Jogada")
                         .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("JogadaMaquina")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("TorneioId")
@@ -86,6 +89,9 @@ namespace Project.Migrations
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("Empate")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Idade")
                         .HasColumnType("INTEGER");

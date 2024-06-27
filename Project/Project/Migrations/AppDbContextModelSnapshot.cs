@@ -28,6 +28,9 @@ namespace Project.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("JogadaMaquina")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("TorneioId")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -83,6 +86,9 @@ namespace Project.Migrations
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("Empate")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Idade")
                         .HasColumnType("INTEGER");

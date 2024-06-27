@@ -65,8 +65,8 @@ POST {{Project_HostAddress}}/batalhar
 Content-Type: application/json
 
 {
-    "userId": "1dcb572a-29b0-4cfd-97f5-3739a9ceda74",
-    "torneioId": "d882f6fc-8837-41e7-9d56-a66940e4af1c",
+    "userId": "2489ab40-0480-4429-9a35-4df391a8ce64",
+    "torneioId": "6a6a76ce-59ae-4eba-859c-cc1ce5c79e6a",
     "jogada": "pedra"
 }
 
