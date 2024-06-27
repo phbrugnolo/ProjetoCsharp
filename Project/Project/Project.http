@@ -72,3 +72,6 @@ Content-Type: application/json
 
 ### Listagem das batalhas
 GET {{Project_HostAddress}}/batalhas/listar
+
+### Listagem da ultima batalha
+GET {{Project_HostAddress}}/batalhas/last

@@ -167,5 +167,14 @@ app.MapGet("/batalhas/listar", ([FromServices] AppDbContext context) =>
     return Results.NotFound("Nenhuma batalha encontrada");
 });
 
+app.MapGet("/batalhas/last", ([FromServices] AppDbContext context) =>
+{
+    var lastBattle = context.Battles.OrderByDescending(x => x.BattleId).FirstOrDefault();
+
+    if (lastBattle is not null) return Results.Ok(lastBattle);
+    return Results.NotFound("Nenhuma batalha encontrada");
+
+});
+
 app.UseCors("AcessoTotal");
 app.Run();
