@@ -165,7 +165,6 @@ app.MapPost("/batalhar", ([FromBody] Battle battle, [FromServices] AppDbContext 
 app.MapGet("/batalhas/listar", async ([FromServices] AppDbContext ctx) =>
 {
     var battles = await ctx.Battles
-                           .Include(j => j.JogadaMaquina)
                            .Include(b => b.User)
                            .Include(b => b.Torneio)
                            .ToListAsync();
@@ -177,7 +176,6 @@ app.MapGet("/batalhas/listar", async ([FromServices] AppDbContext ctx) =>
 app.MapGet("/batalhas/last", async ([FromServices] AppDbContext ctx) =>
 {
     var lastBattle = await ctx.Battles
-                              .Include(j => j.JogadaMaquina)
                               .Include(b => b.User)
                               .Include(b => b.Torneio)
                               .OrderByDescending(x => x.BattleId)

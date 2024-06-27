@@ -11,6 +11,7 @@ namespace Project.Models
         [Required(ErrorMessage = "A jogada é obrigatória.")]
         public string? Jogada { get; set; }
         public string? JogadaMaquina { get; set; }
+
         [Required(ErrorMessage = "O ID do usuário é obrigatório.")]
         public string? UserId { get; set; }
         public User? User { get; set; }
@@ -24,7 +25,7 @@ namespace Project.Models
             string[] opcoes = { "pedra", "papel", "tesoura" };
             Random random = new Random();
             int indiceMaquina = random.Next(0, 3);
-            string JogadaMaquina = opcoes[indiceMaquina];
+            JogadaMaquina = opcoes[indiceMaquina];
 
             if (Jogada == JogadaMaquina)
             {
