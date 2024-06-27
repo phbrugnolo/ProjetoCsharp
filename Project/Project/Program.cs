@@ -52,7 +52,7 @@ app.MapDelete("/users/remover/{id}", ([FromRoute] string id, [FromServices] AppD
     {
         context.Users.Remove(usuario);
         context.SaveChanges();
-        return Results.Ok(context.Users.ToList());
+        return Results.Ok("Usuário removido com sucesso");
     }
     return Results.NotFound("Usuário não encontrado");
 });
@@ -115,7 +115,7 @@ app.MapDelete("/tournament/remover/{id}", ([FromRoute] string id, [FromServices]
     {
         context.Torneios.Remove(torneio);
         context.SaveChanges();
-        return Results.Ok(context.Torneios.ToList());
+        return Results.Ok("Torneio removido com sucesso");
     }
     return Results.NotFound("Torneio não encontrado");
 });
@@ -156,16 +156,16 @@ app.MapPost("/batalhar", ([FromBody] Battle battle, [FromServices] AppDbContext 
 
     string resultado = battle.Batalhar(user);
 
-    // context.Battles.Add(battle);
+    context.Battles.Add(battle);
     context.SaveChanges();
     return Results.Ok(resultado);
 });
 
-// app.MapGet("/batalhas/listar", ([FromServices] AppDbContext context) =>
-// {
-//     if (context.Battles.Any()) return Results.Ok(context.Battles.ToList());
-//     return Results.NotFound("Nenhuma batalha encontrada");
-// });
+app.MapGet("/batalhas/listar", ([FromServices] AppDbContext context) =>
+{
+    if (context.Battles.Any()) return Results.Ok(context.Battles.ToList());
+    return Results.NotFound("Nenhuma batalha encontrada");
+});
 
 app.UseCors("AcessoTotal");
 app.Run();

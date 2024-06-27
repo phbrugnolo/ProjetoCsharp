@@ -49,6 +49,7 @@ namespace Project.Migrations
                 columns: table => new
                 {
                     BattleId = table.Column<string>(type: "TEXT", nullable: false),
+                    CriadoEm = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Jogada = table.Column<string>(type: "TEXT", nullable: false),
                     UserId = table.Column<string>(type: "TEXT", nullable: false),
                     TorneioId = table.Column<string>(type: "TEXT", nullable: false)

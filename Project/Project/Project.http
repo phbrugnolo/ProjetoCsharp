@@ -8,20 +8,20 @@ POST {{Project_HostAddress}}/users/cadastrar
 Content-Type: application/json
 
 {
-    "nome": "teste2",
+    "nome": "teste",
     "email": "email@email.com",
     "telefone": "98967912",
     "idade": 28
 }
 
 ### Buscar usuário
-GET {{Project_HostAddress}}/users/buscar/teste
+GET {{Project_HostAddress}}/users/buscar/91809d51-d73b-4548-ab52-349a6d7f4ae6
 
 ### Deletar usuário
-DELETE {{Project_HostAddress}}/users/remover/teste2
+DELETE {{Project_HostAddress}}/users/remover/5c936435-e1be-4ed4-821f-7d98384bc399
 
 ### Editar usuário
-PUT {{Project_HostAddress}}/users/edit/teste
+PUT {{Project_HostAddress}}/users/edit/1dcb572a-29b0-4cfd-97f5-3739a9ceda74
 Content-Type: application/json
 
 {
@@ -42,13 +42,13 @@ Content-Type: application/json
 }
 
 ### Buscar torneio
-GET {{Project_HostAddress}}/tournament/buscar/TorneioV
+GET {{Project_HostAddress}}/tournament/buscar/d882f6fc-8837-41e7-9d56-a66940e4af1c
 
 ### Deletar torneio
-DELETE {{Project_HostAddress}}/tournament/remover/TorneioV
+DELETE {{Project_HostAddress}}/tournament/remover/6821b291-adbe-453a-9281-6baf7846b1e3
 
 ### Editar torneio
-PUT {{Project_HostAddress}}/tournament/edit/TorneioV
+PUT {{Project_HostAddress}}/tournament/edit/d882f6fc-8837-41e7-9d56-a66940e4af1c
 Content-Type: application/json
 
 {
@@ -56,7 +56,8 @@ Content-Type: application/json
     "descricao": "torneio de inverno",
     "premiacao": 2000.00
 }
-### 
+
+### Listar torneios
 GET {{Project_HostAddress}}/tournament/listar
 
 ### Batalhar
@@ -64,10 +65,10 @@ POST {{Project_HostAddress}}/batalhar
 Content-Type: application/json
 
 {
-    "userId": "69285bc4-9ac0-4b20-ac9a-c09de86a3900",
-    "torneioId": "9e77cf40-ec7f-456d-a89b-e3b6d0e90c23",
+    "userId": "1dcb572a-29b0-4cfd-97f5-3739a9ceda74",
+    "torneioId": "d882f6fc-8837-41e7-9d56-a66940e4af1c",
     "jogada": "pedra"
 }
 
 ### Listagem das batalhas
-# GET {{Project_HostAddress}}/batalhas/listar
+GET {{Project_HostAddress}}/batalhas/listar
