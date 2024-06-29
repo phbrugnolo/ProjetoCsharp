@@ -75,3 +75,6 @@ GET {{Project_HostAddress}}/batalhas/listar
 
 ### Listagem da ultima batalha
 GET {{Project_HostAddress}}/batalhas/last
+
+### Listagem de batlhas por usuario
+GET {{Project_HostAddress}}/users/batalhas/2489ab40-0480-4429-9a35-4df391a8ce64

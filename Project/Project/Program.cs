@@ -181,7 +181,21 @@ app.MapGet("/batalhas/last", async ([FromServices] AppDbContext ctx) =>
                               .OrderByDescending(x => x.BattleId)
                               .FirstOrDefaultAsync();
 
-    if (lastBattle != null) return Results.Ok(lastBattle);
+    if (lastBattle is not null) return Results.Ok(lastBattle);
+    return Results.NotFound("Nenhuma batalha encontrada");
+});
+
+app.MapGet("/users/batalhas/{id}", async ([FromRoute] string id, [FromServices] AppDbContext ctx) =>
+{
+    if (ctx.Battles.Any())
+    {
+        var userBattles = await ctx.Battles.Where(x => x.UserId == id)
+                                           .Include(b => b.User)
+                                           .Include(b => b.Torneio)
+                                           .ToListAsync();
+
+        return Results.Ok(userBattles);
+    }
     return Results.NotFound("Nenhuma batalha encontrada");
 });
 
