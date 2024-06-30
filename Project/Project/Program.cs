@@ -41,19 +41,19 @@ app.MapPost("/users/cadastrar/", ([FromBody] User usuario, [FromServices] AppDbC
 
 app.MapGet("/users/listar", ([FromServices] AppDbContext ctx) =>
 {
-    if (ctx.Users.Any()) return Results.Ok(ctx.Users.ToList());
+    if (ctx.Users.Any()) return Results.Ok(ctx.Users.OrderByDescending(x => x.CriadoEm).ToList());
     return Results.NotFound("Usuários não encontrados");
 });
 
 app.MapDelete("/users/remover/{id}", ([FromRoute] string id, [FromServices] AppDbContext ctx) =>
 {
-    User? usuario = ctx.Users.FirstOrDefault(x => x.UserId == id);
+    User? usuario = ctx.Users.Find(id);
 
     if (usuario is not null)
     {
         ctx.Users.Remove(usuario);
         ctx.SaveChanges();
-        return Results.Ok("Usuário removido com sucesso");
+        return Results.Ok(ctx.Users.OrderByDescending(x => x.CriadoEm).ToList());
     }
     return Results.NotFound("Usuário não encontrado");
 });
@@ -104,19 +104,19 @@ app.MapPost("/tournament/cadastrar", ([FromBody] Torneio torneio, [FromServices]
 
 app.MapGet("/tournament/listar", ([FromServices] AppDbContext ctx) =>
 {
-    if (ctx.Torneios.Any()) return Results.Ok(ctx.Torneios.ToList());
+    if (ctx.Torneios.Any()) return Results.Ok(ctx.Torneios.OrderByDescending(x => x.CriadoEm).ToList());
     return Results.NotFound("Torneios não encontrados");
 });
 
 app.MapDelete("/tournament/remover/{id}", ([FromRoute] string id, [FromServices] AppDbContext ctx) =>
 {
-    Torneio? torneio = ctx.Torneios.FirstOrDefault(x => x.TorneioId == id);
+    Torneio? torneio = ctx.Torneios.Find(id);
 
     if (torneio is not null)
     {
         ctx.Torneios.Remove(torneio);
         ctx.SaveChanges();
-        return Results.Ok("Torneio removido com sucesso");
+        return Results.Ok(ctx.Torneios.OrderByDescending(x => x.CriadoEm).ToList());
     }
     return Results.NotFound("Torneio não encontrado");
 });
@@ -167,6 +167,7 @@ app.MapGet("/batalhas/listar", async ([FromServices] AppDbContext ctx) =>
     var battles = await ctx.Battles
                            .Include(b => b.User)
                            .Include(b => b.Torneio)
+                           .OrderByDescending(x => x.CriadoEm)
                            .ToListAsync();
 
     if (battles.Any()) return Results.Ok(battles);
@@ -178,7 +179,7 @@ app.MapGet("/batalhas/last", async ([FromServices] AppDbContext ctx) =>
     var lastBattle = await ctx.Battles
                               .Include(b => b.User)
                               .Include(b => b.Torneio)
-                              .OrderByDescending(x => x.BattleId)
+                              .OrderByDescending(x => x.CriadoEm)
                               .FirstOrDefaultAsync();
 
     if (lastBattle is not null) return Results.Ok(lastBattle);

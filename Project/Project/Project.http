@@ -15,7 +15,7 @@ Content-Type: application/json
 }
 
 ### Buscar usuário
-GET {{Project_HostAddress}}/users/buscar/91809d51-d73b-4548-ab52-349a6d7f4ae6
+GET {{Project_HostAddress}}/users/buscar/2489ab40-0480-4429-9a35-4df391a8ce64
 
 ### Deletar usuário
 DELETE {{Project_HostAddress}}/users/remover/5c936435-e1be-4ed4-821f-7d98384bc399
@@ -67,7 +67,7 @@ Content-Type: application/json
 {
     "userId": "2489ab40-0480-4429-9a35-4df391a8ce64",
     "torneioId": "6a6a76ce-59ae-4eba-859c-cc1ce5c79e6a",
-    "jogada": "pedra"
+    "jogada": "tesoura"
 }
 
 ### Listagem das batalhas
