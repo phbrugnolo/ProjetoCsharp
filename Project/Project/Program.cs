@@ -180,8 +180,8 @@ app.MapGet("/batalhas/last", async ([FromServices] AppDbContext ctx) =>
                               .Include(b => b.User)
                               .Include(b => b.Torneio)
                               .OrderByDescending(x => x.CriadoEm)
-                              .FirstOrDefaultAsync();
-
+                              .Take(5)
+                              .ToListAsync();
     if (lastBattle is not null) return Results.Ok(lastBattle);
     return Results.NotFound("Nenhuma batalha encontrada");
 });
