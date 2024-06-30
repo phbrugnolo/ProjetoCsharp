@@ -19,6 +19,7 @@ namespace Project.Models
         public string Nome { get; set; }
 
         [Required(ErrorMessage = "Este campo é obrigatório")]
+        [Range(13, 100, ErrorMessage = "A idade deve ser maior ou igual a 13 anos.")]
         public int Idade { get; set; }
 
         [Required(ErrorMessage = "Este campo é obrigatório")]

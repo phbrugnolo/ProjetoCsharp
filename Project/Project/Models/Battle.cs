@@ -7,15 +7,13 @@ namespace Project.Models
     {
         public string BattleId { get; set; } = Guid.NewGuid().ToString();
         public DateTime CriadoEm { get; set; } = DateTime.Now;
-
         [Required(ErrorMessage = "A jogada é obrigatória.")]
         public string? Jogada { get; set; }
         public string? JogadaMaquina { get; set; }
-
+        public string? Resultado { get; set; }
         [Required(ErrorMessage = "O ID do usuário é obrigatório.")]
         public string? UserId { get; set; }
         public User? User { get; set; }
-
         [Required(ErrorMessage = "O ID do torneio é obrigatório.")]
         public string? TorneioId { get; set; }
         public Torneio? Torneio { get; set; }
@@ -29,16 +27,19 @@ namespace Project.Models
 
             if (Jogada == JogadaMaquina)
             {
+                Resultado = "Empate";
                 user.Empate += 1;
             }
             else if ((Jogada == "pedra" && JogadaMaquina == "tesoura") ||
                      (Jogada == "papel" && JogadaMaquina == "pedra") ||
                      (Jogada == "tesoura" && JogadaMaquina == "papel"))
             {
+                Resultado = "Vitória";
                 user.Vitoria += 1;
             }
             else
             {
+                Resultado = "Derrota";
                 user.Derrota += 1;
             }
         }
