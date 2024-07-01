@@ -23,6 +23,7 @@ namespace Project.Models
         public int Idade { get; set; }
 
         [Required(ErrorMessage = "Este campo é obrigatório")]
+        [TelefoneFormato(ErrorMessage = "O telefone deve estar no formato (XXX) XXXXX-XXXX.")]
         public string Telefone { get; set; }
 
         [Required(ErrorMessage = "O campo Email é obrigatório.")]

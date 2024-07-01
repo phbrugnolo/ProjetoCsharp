@@ -25,7 +25,12 @@ app.MapPost("/users/cadastrar/", ([FromBody] User usuario, [FromServices] AppDbC
     List<ValidationResult> errors = new List<ValidationResult>();
     if (!Validator.TryValidateObject(usuario, new ValidationContext(usuario), errors, true))
     {
-        return Results.BadRequest(errors);
+        var errorMessages = errors.Select(e => new 
+        { 
+            Field = e.MemberNames.FirstOrDefault() ?? string.Empty, 
+            Message = e.ErrorMessage 
+        }).ToList();
+        return Results.BadRequest(new { Errors = errorMessages });
     }
 
     User? usuarioBuscado = ctx.Users.FirstOrDefault(x => x.UserId == usuario.UserId);
@@ -36,7 +41,13 @@ app.MapPost("/users/cadastrar/", ([FromBody] User usuario, [FromServices] AppDbC
         ctx.SaveChanges();
         return Results.Created($"/users/buscar/{usuario.UserId}", usuario);
     }
-    return Results.BadRequest("Já existe um usuario com este ID");
+    return Results.BadRequest(new 
+    { 
+        Errors = new List<object> 
+        { 
+            new { Field = "UserId", Message = "Já existe um usuario com este ID" } 
+        } 
+    });
 });
 
 app.MapGet("/users/listar", ([FromServices] AppDbContext ctx) =>
@@ -60,6 +71,17 @@ app.MapDelete("/users/remover/{id}", ([FromRoute] string id, [FromServices] AppD
 
 app.MapPut("/users/edit/{id}", ([FromRoute] string id, [FromBody] User uAtualizado, [FromServices] AppDbContext ctx) =>
 {
+    List<ValidationResult> errors = new List<ValidationResult>();
+    if (!Validator.TryValidateObject(uAtualizado, new ValidationContext(uAtualizado), errors, true))
+    {
+        var errorMessages = errors.Select(e => new
+        {
+            Field = e.MemberNames.FirstOrDefault() ?? string.Empty,
+            Message = e.ErrorMessage
+        }).ToList();
+        return Results.BadRequest(new { Errors = errorMessages });
+    }
+
     User? usuario = ctx.Users.FirstOrDefault(x => x.UserId == id);
 
     if (usuario is not null)
@@ -72,7 +94,13 @@ app.MapPut("/users/edit/{id}", ([FromRoute] string id, [FromBody] User uAtualiza
         ctx.SaveChanges();
         return Results.Ok("Usuário editado com sucesso");
     }
-    return Results.NotFound("Usuário não encontrado");
+    return Results.NotFound(new
+    {
+        Errors = new List<object>
+        {
+            new { Field = "UserId", Message = "Usuário não encontrado" }
+        }
+    });
 });
 
 app.MapGet("/users/buscar/{id}", ([FromRoute] string id, [FromServices] AppDbContext ctx) =>
