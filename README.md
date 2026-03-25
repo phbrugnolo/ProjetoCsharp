@@ -1,4 +1,4 @@
-# 🎮 Project - Sistema de Torneio Pedra, Papel e Tesoura
+# 🎮 Projeto - Sistema de Torneio Pedra, Papel e Tesoura
 
 Este projeto é uma aplicação desenvolvida em **C# com Entity Framework Core e SQLite**, que simula um sistema de **torneios de Pedra, Papel e Tesoura** entre usuários.
 
